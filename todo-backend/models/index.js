@@ -21,7 +21,7 @@ db.sequelize = sequelize
 
 db.todos = require('./todoModel')(sequelize, DataTypes)
 
-sequelize.sync({force:true})
+sequelize.sync({force:false})
 
 
 module.exports = db

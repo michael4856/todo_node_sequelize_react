@@ -36,7 +36,27 @@ const {title, describtion} = req.body
         res.json({message:"The todo is not added try again"})
     }    
 }
-const home = (req, res)=>{
-    res.send("hey there this is home")
+const readTodos = async (req,res) =>{
+
+    const todos = await Todo.findAll()
+
+    res.send(todos)
 }
-module.exports = {addTodo, home}
+const updateTodos = async(req,res) =>{
+    let id = req.params.id
+
+    const updatedTodo = await Todo.update(req.body, {where: {id:id}})
+
+    res.status(200).send(updatedTodo)
+
+}
+
+const deleteTodos = async (req, res)=>{
+    let id = req.params.id
+
+    await Todo.destroy( {where:{id:id}})
+
+    res.status(200).send("product is deleted")
+    
+}
+module.exports = {addTodo, readTodos, updateTodos, deleteTodos}
